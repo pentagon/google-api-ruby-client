@@ -659,7 +659,7 @@ module Google
             when 401
               raise AuthorizationError.new(result.error_message || 'Invalid/Expired Authentication', result)
             when 400, 402...500
-              raise ClientError.new(result.error_message || "A client error has occurred", result)
+              raise ClientError.new("#{result.error_message} :: #{result.response.body}", result)
             when 500...600
               raise ServerError.new(result.error_message || "A server error has occurred", result)
             else
